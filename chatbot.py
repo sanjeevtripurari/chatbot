@@ -1,21 +1,26 @@
 import os
 import streamlit as st
-import openai
 from dotenv import load_dotenv
 import os #provides ways to access the Operating System and allows us to read the environment variables
 
 #load_dotenv()
 
 # openai.api_key = os.getenv("OPENAI_API_KEY")
-openai.api_key = st.secrets['openai']["OPENAI_API_KEY"]
+import os
+from openai import OpenAI
+
+client = OpenAI(
+    # This is the default and can be omitted
+    api_key=os.environ.get("OPENAI_API_KEY"),
+)
 
 def get_openai_response(user_input):
     """
     Sends user input to OpenAI's Chat API and returns the model's response.
     """
     try:
-        response = openai.ChatCompletion.create(
-            model="gpt-3.5-turbo",  # Use the model suited for chat applications
+        response = client.chat.completions.create(
+            model="gpt-4o",  # Use the model suited for chat applications
             messages=[
                 {"role": "system", "content": "You are a helpful assistant."},
                 {"role": "user", "content": user_input},
