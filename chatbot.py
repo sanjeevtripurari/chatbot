@@ -6,7 +6,8 @@ import os #provides ways to access the Operating System and allows us to read th
 
 #load_dotenv()
 
-openai.api_key = os.getenv("OPENAI_API_KEY")
+# openai.api_key = os.getenv("OPENAI_API_KEY")
+openai.api_key = st.secrets['openai']["OPENAI_API_KEY"]
 
 def get_openai_response(user_input):
     """
